@@ -1,0 +1,9 @@
+CREATE OR REPLACE PROCEDURE TransferFunds(p_from_account IN NUMBER, p_to_account IN NUMBER, p_amount IN NUMBER) AS
+BEGIN
+    IF (SELECT Balance FROM Accounts WHERE AccountID = p_from_account) < p_amount THEN
+        RAISE_APPLICATION_ERROR(-20003, 'Insufficient funds for transfer.');
+    END IF;
+    UPDATE Accounts SET Balance = Balance - p_amount WHERE AccountID = p_from_account;
+    UPDATE Accounts SET Balance = Balance + p_amount WHERE AccountID = p_to_account;
+    COMMIT;
+END;
