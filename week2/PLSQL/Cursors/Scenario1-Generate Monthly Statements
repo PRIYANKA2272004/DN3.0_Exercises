@@ -1,0 +1,9 @@
+DECLARE
+    CURSOR monthly_statement_cursor IS
+        SELECT * FROM Transactions WHERE MONTH(TransactionDate) = MONTH(SYSDATE) AND YEAR(TransactionDate) = YEAR(SYSDATE);
+BEGIN
+    FOR statement IN monthly_statement_cursor LOOP
+        DBMS_OUTPUT.PUT_LINE('Statement for Account ' || statement.AccountID || ': ' || statement.TransactionType || ' of ' || statement.Amount);
+    END LOOP;
+END;
+
