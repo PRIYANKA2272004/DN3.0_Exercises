@@ -1,0 +1,8 @@
+DECLARE
+    CURSOR loan_cursor IS
+        SELECT CustomerID, LoanID FROM Loans WHERE EndDate BETWEEN SYSDATE AND ADD_MONTHS(SYSDATE, 1);
+BEGIN
+    FOR loan IN loan_cursor LOOP
+        DBMS_OUTPUT.PUT_LINE('Reminder: Loan for Customer ' || loan.CustomerID || ' is due on ' || loan.EndDate);
+    END LOOP;
+END;
