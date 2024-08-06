@@ -1,0 +1,9 @@
+DECLARE
+    CURSOR account_cursor IS
+        SELECT AccountID FROM Accounts;
+BEGIN
+    FOR account IN account_cursor LOOP
+        UPDATE Accounts SET Balance = Balance - 50 WHERE AccountID = account.AccountID; -- Assuming annual fee is $50
+    END LOOP;
+    COMMIT;
+END;
